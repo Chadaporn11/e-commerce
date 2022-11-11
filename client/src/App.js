@@ -12,7 +12,8 @@ import { Routes, Route } from "react-router-dom";
 
 // pages admin
 import HomeAdmin from "./components/pages/admin/Home";
-import ManageAdmin from './components/pages/admin/ManageAdmin'
+import ManageAdmin from './components/pages/admin/ManageAdmin';
+import CreateCategory from "./components/pages/admin/CreateCategory";
 
 // pages user
 import HomeUser from "./components/pages/user/Home";
@@ -73,6 +74,14 @@ function App() {
           element={
             <AdminRoute>
               <ManageAdmin />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/create-category"
+          element={
+            <AdminRoute>
+              <CreateCategory />
             </AdminRoute>
           }
         />
