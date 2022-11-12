@@ -1,0 +1,6 @@
+server:
+npm i
+npm install cloudinary
+
+client:
+npm i react-image-file-resizer
