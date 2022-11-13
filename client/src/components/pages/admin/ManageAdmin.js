@@ -15,7 +15,14 @@ import {
 
 const ManageAdmin = () => {
   const { user } = useSelector((state) => ({ ...state }));
+  //ข้อมูลต้นฉบับ
   const [data, setData] = useState([]);
+  //ข้อมูลที่เลือก
+  const [selectData, setSelectData] = useState([]);
+  //ข้อมูลที่ใช้ loop ใน dropdown
+  const [drop, setDrop] = useState([]);
+
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [values, setValues] = useState({
     id: "",
@@ -32,13 +39,13 @@ const ManageAdmin = () => {
 
   const handleOk = () => {
     setIsModalVisible(false);
-    resetPassword(user.token,values.id,{values})
-    .then(res=>{
-      console.log(res)
-      loadData(user.token);
-    }).catch(err=>{
-      console.log(err.response)
-    })
+    resetPassword(user.token, values.id, { values })
+      .then(res => {
+        console.log(res)
+        loadData(user.token);
+      }).catch(err => {
+        console.log(err.response)
+      })
 
   };
 
@@ -58,12 +65,17 @@ const ManageAdmin = () => {
       .then((res) => {
         //code
         setData(res.data);
+        setSelectData(res.data);
+        //[...new Set(array)]
+        const dataDrop = [...new Set(res.data.map(item => item.role))];
+        setDrop(dataDrop);
       })
       .catch((err) => {
         //err
         console.log(err.response.data);
       });
   };
+  console.log(drop)
 
   const handleOnchange = (e, id) => {
     const value = {
@@ -107,6 +119,19 @@ const ManageAdmin = () => {
     }
   };
   const roleData = ["admin", "user"];
+
+  const handleSelectRole = (e) => {
+    const value = e.target.value;
+    if (value === 'all') {
+      setSelectData(data);
+    } else {
+      const filterData = data.filter((item, index) => {
+        return item.role === value;
+      })
+      setSelectData(filterData)
+    }
+  }
+
   return (
     <div className="container-fluid">
       <div className="row">
@@ -115,7 +140,15 @@ const ManageAdmin = () => {
         </div>
 
         <div className="col">
-          <h1>ManageAdmin Page</h1>
+          <h1>MERN Stack ระบบล็อคอิน & จัดการผู้ใช้งาน</h1>
+          <select onChange={(e) => handleSelectRole(e)}>
+            {drop.map((item, index) => 
+              <option key={index} value={item}>{item}</option>
+            )}
+
+
+          </select>
+
           <table class="table">
             <thead>
               <tr>
@@ -128,7 +161,7 @@ const ManageAdmin = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((item, index) => (
+              {selectData.map((item, index) => (
                 <tr>
                   <th scope="row">{item.username}</th>
                   <td>

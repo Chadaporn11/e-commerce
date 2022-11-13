@@ -1,9 +1,18 @@
-import React from 'react'
+import React from 'react';
+import BestSeller from '../home/BestSeller';
+import NewProduct from '../home/NewProduct';
 
 const Home = () => {
     return (
         <div>
-            <h1>Home Page</h1>
+            {/*New Product*/}
+            <h4 className='text-center p-3 mt-5 mb-5 display-4 jumbotron'>New Product</h4>
+            <NewProduct/>
+            
+            {/*Best Product*/}
+            <h4 className='text-center p-3 mt-5 mb-5 display-4 jumbotron'>Best Seller</h4>
+            <BestSeller/>
+
         </div>
     )
 }

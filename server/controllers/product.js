@@ -57,3 +57,15 @@ exports.update = async (req, res) => {
         res.status(500).send("Server Error!");
     }
 };
+
+exports.listBy = async (req, res) => {
+    try {
+        // Code
+        const { sort, order, limit } = req.body;
+        const product = await Product.find().limit(limit).populate('category').sort([[sort,order]]);
+        res.send(product);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Server Error!");
+    }
+};
