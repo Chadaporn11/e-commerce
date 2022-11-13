@@ -12,8 +12,46 @@ exports.create = async (req, res) => {
 exports.list = async (req, res) => {
     try {
         // Code
-        const product = await Product.find().populate('category').exec();
+        const count = parseInt(req.params.count);
+        const product = await Product.find().limit(count).populate('category').sort([["createdAt","desc"]]);
         res.send(product);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Server Error!");
+    }
+};
+
+
+exports.remove = async (req, res) => {
+    try {
+        // Code
+        const id = req.params.id;
+        const product = await Product.findOneAndDelete({ _id: id }).exec();
+        res.send(product);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Server Error!");
+    }
+};
+
+exports.read = async (req, res) => {
+    try {
+        // Code
+        const id = req.params.id;
+        const product = await Product.findOne({ _id: id }).populate('category').exec();
+        res.send(product);
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Server Error!");
+    }
+};
+
+exports.update = async (req, res) => {
+    try{
+        const id = req.params.id;
+        const product = await Product.findByIdAndUpdate({_id: id}, req.body, {new:true}).exec();
+        res.send(product);
+
     } catch (err) {
         console.log(err);
         res.status(500).send("Server Error!");

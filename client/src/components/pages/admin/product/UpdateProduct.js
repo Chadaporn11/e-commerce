@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import MenubarAdmin from "../../../layouts/MenubarAdmin";
 import { useSelector } from "react-redux";
+
 import { toast } from 'react-toastify';
+import { useParams, useNavigate } from "react-router-dom";
 import FileUpload from "./FileUpload";
 import { Spin } from 'antd';
 
+
 //function
 import {
-    createProduct,
+    readProduct,
+    updateProduct,
 } from '../../../functions/product';
 import {
     listCategory,
@@ -23,10 +27,33 @@ const initialstate = {
     images: [],
 };
 
-const CreateProduct = () => {
+const UpdateProduct = () => {
+
+    const params = useParams();
+    const navigate = useNavigate();
     const { user } = useSelector((state) => ({ ...state }));
+    
     const [values, setValues] = useState(initialstate);
+    const [category, setCategory] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    const loadData = () => {
+        readProduct(user.token, params.id)
+            .then((res) => {
+                setValues({ ...values, ...res.data});
+            }).catch((err) => {
+                console.log(err.response.data);
+            });
+
+        listCategory(user.token)
+            .then((res) => {
+                setCategory(res.data);
+            }).catch((err) => {
+                console.log(err.response.data);
+            });
+    }
+    console.log("value:", values)
+    console.log("category:", category)
 
     const handleChange = (e) => {
         //console.log(e.target.name, e.target.value);
@@ -34,33 +61,30 @@ const CreateProduct = () => {
     }
 
     const handleSubmit = (e) => {
+        setLoading(true);
         e.preventDefault();
         console.log(values);
-        createProduct(user.token, values)
+        updateProduct(user.token, values._id, values)
             .then((res) => {
                 console.log(res);
-                toast.success('Insert Product ' + res.data.title + " Success!");
+                setLoading(false);
+                toast.success('Update Product ' + res.data.title + " Success!");
+                navigate('/admin/index');
             }).catch((err) => {
-                console.log(err.response.data);
-                toast.error('Error insert product!')
+                console.log(err);
+                setLoading(false);
+                toast.error('Error update product!')
 
             });
     }
 
-    const loadData = (authtoken) => {
-        listCategory(authtoken)
-            .then((res) => {
-                console.log(res.data);
-                setValues({ ...values, categories: res.data })
-            }).catch((err) => {
-                console.log(err.response.data);
-            })
-    }
-    console.log('value:', values)
+
 
     useEffect(() => {
-        loadData(user.token);
+        loadData();
     }, []);
+
+
 
     return (
         <div className="container-fluid">
@@ -72,10 +96,10 @@ const CreateProduct = () => {
 
                 <div className="col">
                     {loading
-                    ?<h1>Loading...<Spin/></h1>
-                    :<h1>Create Product Page</h1>
+                        ? <h1>Loading...<Spin /></h1>
+                        : <h1>Update Product Page</h1>
                     }
-                    
+
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label>title</label>
@@ -123,11 +147,12 @@ const CreateProduct = () => {
                                 className="form-control"
                                 name="category"
                                 onChange={handleChange}
+                                value={values.category._id}
                             >
                                 <option>Please Select</option>
                                 {
-                                    values.categories.length > 0 &&
-                                    values.categories.map((item) =>
+                                    category.length > 0 &&
+                                    category.map((item) =>
                                         <option
                                             key={item._id}
                                             value={item._id}
@@ -135,18 +160,18 @@ const CreateProduct = () => {
                                     )}
                             </select>
                         </div>
-                        <FileUpload 
-                        values={values} 
-                        setValues={setValues}
-                        loadind={loading}
-                        setLoading={setLoading}/>
+                        <FileUpload
+                            values={values}
+                            setValues={setValues}
+                            loadind={loading}
+                            setLoading={setLoading} />
                         <button className='btn btn-primary'>Submit</button>
                     </form>
                 </div>
 
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default CreateProduct;
+export default UpdateProduct;

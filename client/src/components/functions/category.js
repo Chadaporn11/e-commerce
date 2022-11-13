@@ -14,7 +14,7 @@ export const listCategory = async (authtoken) => {
       authtoken,
     },
   });
-}
+};
 
 export const readCategory = async (authtoken,id) => {
   return await axios.get("http://localhost:5000/api/category/"+id,{
