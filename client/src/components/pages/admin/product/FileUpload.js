@@ -3,12 +3,15 @@ import Resize from 'react-image-file-resizer';
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-const FileUpload = ({values, setValues}) => {
+import { Avatar, Badge } from 'antd';
+
+const FileUpload = ({ values, setValues, loading, setLoading }) => {
     const { user } = useSelector((state) => ({ ...state }));
     console.log('file:', values);
     const handleChangeFile = (e) => {
         const files = e.target.files;
         if (files) {
+            setLoading(true);
             let allfileUpload = values.images; //[]
 
             for (let i = 0; i < files.length; i++) {
@@ -31,9 +34,10 @@ const FileUpload = ({values, setValues}) => {
                                 },
 
                             }).then((res) => {
+                                setLoading(false);
                                 allfileUpload.push(res.data);
-                                console.log('allfileUpload in data:',allfileUpload);
-                                setValues({...values, images: allfileUpload});
+                                console.log('allfileUpload in data:', allfileUpload);
+                                setValues({ ...values, images: allfileUpload });
                             }).catch((err) => {
                                 console.log(err);
                             })
@@ -44,22 +48,70 @@ const FileUpload = ({values, setValues}) => {
         }
     }
 
+    const handleRemove = (public_id) => {
+        console.log(public_id)
+        setLoading(true);
+        //#1
+        //const img = values.images
+        //#2
+        const { images } = values;
+        axios.post("http://localhost:5000/api/removeimages",
+            {
+                public_id
+            }, {
+            headers: {
+                authtoken: user.token
+            }
+        }).then((res) => {
+            setLoading(false);
+            let filterImages = images.filter((item)=> {
+                return item.public_id !== public_id
+            })
+            setValues({ ...values, images: filterImages });
+
+        }).catch((err) => {
+            console.log(err);
+        });
+
+    }
+
     return (
-        <div className="form-group">
-            <label className='btn btn-primary'>
-                Choose File...
-                <input
-                    onChange={handleChangeFile}
-                    className="form-control"
-                    type="file"
-                    hidden
-                    multiple
-                    accept='images/*'
-                    name="file"
-                />
-            </label>
-        </div>
+        <>
+            <br />
+            {
+                values.images && values.images.map((item) =>
+                    <span className="avatar-item">
+                        <Badge
+                            onClick={() => handleRemove(item.public_id)}
+                            style={{ cursor: 'pointer' }}
+                            count="x">
+                            <Avatar
+                                className='m-3'
+                                src={item.url}
+                                shape="square"
+                                size={120} />
+                        </Badge>
+                    </span>
+                )
+            }
+            <hr />
+            <div className="form-group">
+                <label className='btn btn-primary'>
+                    Choose File...
+                    <input
+                        onChange={handleChangeFile}
+                        className="form-control"
+                        type="file"
+                        hidden
+                        multiple
+                        accept='images/*'
+                        name="file"
+                    />
+                </label>
+            </div>
+            <br />
+        </>
     )
 }
 
-export default FileUpload
+export default FileUpload;
