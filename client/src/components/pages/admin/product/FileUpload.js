@@ -39,6 +39,7 @@ const FileUpload = ({ values, setValues, loading, setLoading }) => {
                                 console.log('allfileUpload in data:', allfileUpload);
                                 setValues({ ...values, images: allfileUpload });
                             }).catch((err) => {
+                                setLoading(false);
                                 console.log(err);
                             })
                     },
@@ -70,6 +71,7 @@ const FileUpload = ({ values, setValues, loading, setLoading }) => {
             setValues({ ...values, images: filterImages });
 
         }).catch((err) => {
+            setLoading(false);
             console.log(err);
         });
 
