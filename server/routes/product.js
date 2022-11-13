@@ -8,6 +8,7 @@ const {
   create,
   update,
   remove,
+  listBy,
 } = require("../controllers/product");
 
 // middleware
@@ -38,6 +39,11 @@ router.get("/product/:id", auth, read);
 //@Method    PUT
 //@Access    Private
 router.put("/product/:id", auth, adminCheck, update);
+
+//@Endpoint  http://localhost:5000/api/productby
+//@Method    POST
+//@Access    Private
+router.post("/productby", listBy);
 
 
 
