@@ -3,6 +3,7 @@ import MenubarAdmin from "../../../layouts/MenubarAdmin";
 import { useSelector } from "react-redux";
 import { toast } from 'react-toastify';
 import FileUpload from "./FileUpload";
+import { Spin } from 'antd';
 
 //function
 import {
@@ -23,7 +24,7 @@ const initialstate = {
 const CreateProduct = () => {
     const { user } = useSelector((state) => ({ ...state }));
     const [values, setValues] = useState(initialstate);
-
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         //console.log(e.target.name, e.target.value);
@@ -68,7 +69,11 @@ const CreateProduct = () => {
                 </div>
 
                 <div className="col">
-                    <h1>Create Product Page</h1>
+                    {loading
+                    ?<h1>Loading...<Spin/></h1>
+                    :<h1>Create Product Page</h1>
+                    }
+                    
                     <form onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label>title</label>
@@ -128,7 +133,11 @@ const CreateProduct = () => {
                                     )}
                             </select>
                         </div>
-                        <FileUpload values={values} setValues={setValues}/>
+                        <FileUpload 
+                        values={values} 
+                        setValues={setValues}
+                        loadind={loading}
+                        setLoading={setLoading}/>
                         <button className='btn btn-primary'>Submit</button>
                     </form>
                 </div>
