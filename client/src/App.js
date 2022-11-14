@@ -4,6 +4,8 @@ import Register from "./components/pages/auth/Register";
 import Login from "./components/pages/auth/Login";
 import Home from "./components/pages/Home";
 import Product from "./components/pages/Product";
+import Shop from "./components/pages/Shop";
+
 
 // Layout
 import Navbar from "./components/layouts/Navbar";
@@ -67,6 +69,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/product/:id" element={<Product />} />
+        <Route path="/shop" element={<Shop />} />
+
 
 
         <Route
