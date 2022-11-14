@@ -33,7 +33,7 @@ router.delete("/product/:id", auth, adminCheck, remove);
 //@Endpoint  http://localhost:5000/api/product
 //@Method    GET
 //@Access    Private
-router.get("/product/:id", auth, read);
+router.get("/product/:id", read);
 
 //@Endpoint  http://localhost:5000/api/product/:id
 //@Method    PUT

@@ -21,9 +21,9 @@ const ProductCard = ({ product }) => {
                     : ""
                 } />}
             actions={[
-                //<Link to={`/admin/update-product/${_id}`}>
+                <Link to={`/product/${_id}`}>
                     <EyeOutlined className='text-warning' />
-                //</Link>
+                </Link>
                 ,
                 <ShoppingCartOutlined className='text-danger'/>,
 

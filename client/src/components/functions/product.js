@@ -24,12 +24,8 @@ export const removeProduct = async (authtoken, id) => {
   });
 };
 
-export const readProduct = async (authtoken, id) => {
-  return await axios.get("http://localhost:5000/api/product/" + id, {
-    headers: {
-      authtoken,
-    },
-  });
+export const readProduct = async (id) => {
+  return await axios.get("http://localhost:5000/api/product/" + id);
 };
 
 export const updateProduct = async (authtoken, id, product) => {

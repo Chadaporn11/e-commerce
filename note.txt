@@ -4,3 +4,4 @@ npm install cloudinary
 
 client:
 npm i react-image-file-resizer
+npm i react-responsive-carousel
