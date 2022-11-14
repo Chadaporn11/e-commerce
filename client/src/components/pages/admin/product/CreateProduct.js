@@ -40,6 +40,7 @@ const CreateProduct = () => {
             .then((res) => {
                 console.log(res);
                 toast.success('Insert Product ' + res.data.title + " Success!");
+                window.location.reload();
             }).catch((err) => {
                 console.log(err.response.data);
                 toast.error('Error insert product!')
