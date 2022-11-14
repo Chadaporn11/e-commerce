@@ -9,6 +9,7 @@ const {
   update,
   remove,
   listBy,
+  searchFilters,
 } = require("../controllers/product");
 
 // middleware
@@ -23,7 +24,7 @@ router.post("/product", auth, adminCheck, create);
 //@Endpoint  http://localhost:5000/api/products
 //@Method    GET
 //@Access    Private
-router.get("/products/:count", auth, list);
+router.get("/products/:count", list);
 
 //@Endpoint  http://localhost:5000/api/product/:id
 //@Method    DELETE
@@ -44,6 +45,9 @@ router.put("/product/:id", auth, adminCheck, update);
 //@Method    POST
 //@Access    Private
 router.post("/productby", listBy);
+
+//search
+router.post("/search/filters", searchFilters);
 
 
 

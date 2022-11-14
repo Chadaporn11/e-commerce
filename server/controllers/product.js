@@ -13,7 +13,7 @@ exports.list = async (req, res) => {
     try {
         // Code
         const count = parseInt(req.params.count);
-        const product = await Product.find().limit(count).populate('category').sort([["createdAt","desc"]]);
+        const product = await Product.find().limit(count).populate('category').sort([["createdAt", "desc"]]);
         res.send(product);
     } catch (err) {
         console.log(err);
@@ -47,9 +47,9 @@ exports.read = async (req, res) => {
 };
 
 exports.update = async (req, res) => {
-    try{
+    try {
         const id = req.params.id;
-        const product = await Product.findByIdAndUpdate({_id: id}, req.body, {new:true}).exec();
+        const product = await Product.findByIdAndUpdate({ _id: id }, req.body, { new: true }).exec();
         res.send(product);
 
     } catch (err) {
@@ -62,10 +62,29 @@ exports.listBy = async (req, res) => {
     try {
         // Code
         const { sort, order, limit } = req.body;
-        const product = await Product.find().limit(limit).populate('category').sort([[sort,order]]);
+        const product = await Product.find().limit(limit).populate('category').sort([[sort, order]]);
         res.send(product);
     } catch (err) {
         console.log(err);
         res.status(500).send("Server Error!");
     }
+};
+
+//search
+const handleQuery = async (req, res, query) => {
+    let products = await Product.find({$text:{$search:query}}).populate('category',"_id name")
+
+    res.send(products);
+
+};
+
+exports.searchFilters = async (req, res) => {
+
+    const { query } = req.body;
+    console.log(query);
+    if (query) {
+        console.log(query);
+        await handleQuery(req, res, query);
+    }
+
 };

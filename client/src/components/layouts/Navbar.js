@@ -1,15 +1,14 @@
 import React from "react";
 import { Menu } from "antd";
 import {
-  MailOutlined,
-  AppstoreOutlined,
-  SettingOutlined,
+  ShopOutlined,
   HomeOutlined,
   UserAddOutlined,
   LoginOutlined,
   LogoutOutlined,
   DownOutlined
 } from "@ant-design/icons";
+import Search from "../cards/Search";
 
 // Router
 import { Link, useNavigate } from "react-router-dom";
@@ -35,6 +34,10 @@ const Navbar = () => {
       <Menu.Item key="home" icon={<HomeOutlined />}>
         {/* <a href="" ></a>*/}
         <Link to="/">Home</Link>
+      </Menu.Item>
+      <Menu.Item key="shop" icon={<ShopOutlined />}>
+        {/* <a href="" ></a>*/}
+        <Link to="/shop">Shop</Link>
       </Menu.Item>
 
       {user && (
@@ -76,6 +79,12 @@ const Navbar = () => {
           </Menu.Item>
         </>
       )}
+      <span 
+      className="p-1"
+      style={{float: "right"}}>
+        <Search/>
+
+      </span>
     </Menu>
   );
 };

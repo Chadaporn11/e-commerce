@@ -8,12 +8,8 @@ export const createProduct = async (authtoken, value) => {
   });
 };
 
-export const listProduct = async (authtoken, count) => {
-  return await axios.get("http://localhost:5000/api/products/" + count, {
-    headers: {
-      authtoken,
-    },
-  });
+export const listProduct = async (count) => {
+  return await axios.get("http://localhost:5000/api/products/" + count);
 };
 
 export const removeProduct = async (authtoken, id) => {
@@ -44,4 +40,8 @@ export const listProductBy = async ( sort, order, limit) => {
       limit
     }
   );
+};
+
+export const searchFilters = async (arg) => {
+  return await axios.post("http://localhost:5000/api/search/filters", arg);
 };
