@@ -9,6 +9,8 @@ const {
   removeUsers,
   changeStatus,
   changeRole,
+  userCart,
+  getUserCart,
 } = require("../controllers/users");
 
 // middleware
@@ -43,5 +45,15 @@ router.post("/change-status", auth, adminCheck, changeStatus);
 //@Method    POST
 //@Access    Private
 router.post("/change-role", auth, adminCheck, changeRole);
+
+//@Endpoint  http://localhost:5000/api/user/cart
+//@Method    POST
+//@Access    Private
+router.post("/user/cart", auth, userCart);
+
+//@Endpoint  http://localhost:5000/api/user/cart
+//@Method    GET
+//@Access    Private
+router.get("/user/cart", auth, getUserCart);
 
 module.exports = router;

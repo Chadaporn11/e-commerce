@@ -27,6 +27,8 @@ import UpdateProduct from "./components/pages/admin/product/UpdateProduct";
 
 // pages user
 import HomeUser from "./components/pages/user/Home";
+import CheckOut from "./components/pages/CheckOut";
+
 // functions
 import { currentUser } from "./components/functions/auth";
 // redux
@@ -74,9 +76,6 @@ function App() {
         <Route path="/product/:id" element={<Product />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/cart" element={<Cart />} />
-
-
-
 
         <Route
           path="/admin/index"
@@ -132,6 +131,14 @@ function App() {
           element={
             <UserRoute>
               <HomeUser />
+            </UserRoute>
+          }
+        />
+         <Route
+          path="/checkout"
+          element={
+            <UserRoute>
+              <CheckOut />
             </UserRoute>
           }
         />
