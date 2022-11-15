@@ -5,15 +5,40 @@ import { Link } from 'react-router-dom';
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import { useSelector, useDispatch } from 'react-redux';
+
+//lodash
+import _ from 'lodash';
 
 const { Meta } = Card;
 const { TabPane } = Tabs;
 
 
 const SingleProductCard = ({ product }) => {
-
+   
+    const dispatch = useDispatch();
     const { _id, title, description, price, sold, quantity, images, category } = product;
 
+    const handleAddTOCart = () => {
+        let cart = [];
+        if(localStorage.getItem('cart')){
+            cart = JSON.parse(localStorage.getItem('cart'));
+        }
+        cart.push({
+            ...product,
+            count:1
+        })
+        let unique = _.uniqWith(cart,_.isEqual)
+        localStorage.setItem('cart',JSON.stringify(unique));
+        dispatch({
+            type: "ADD_TO_CART",
+            payload: unique
+        });
+        dispatch({
+            type: "SET_VISIBLE",
+            payload: true
+        });
+    }
 
     return (
         <>
@@ -40,7 +65,9 @@ const SingleProductCard = ({ product }) => {
                         </Link>
                         ,
                         <>
-                            <ShoppingCartOutlined className='text-danger' />
+                            <ShoppingCartOutlined 
+                            onClick={handleAddTOCart}
+                            className='text-danger' />
                             Add to cart
                         </>
                         ,
