@@ -48,8 +48,8 @@ const CreateProduct = () => {
             });
     }
 
-    const loadData = (authtoken) => {
-        listCategory(authtoken)
+    const loadData = () => {
+        listCategory()
             .then((res) => {
                 console.log(res.data);
                 setValues({ ...values, categories: res.data })
@@ -60,7 +60,7 @@ const CreateProduct = () => {
     console.log('value:', values)
 
     useEffect(() => {
-        loadData(user.token);
+        loadData();
     }, []);
 
     return (

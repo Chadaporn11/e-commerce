@@ -53,8 +53,8 @@ const CreateCategory = () => {
       })
   }
 
-  const loadData = (authtoken) => {
-    listCategory(authtoken)
+  const loadData = () => {
+    listCategory()
       .then((res) => {
         setCategory(res.data)
       }).catch((err) => {
@@ -65,7 +65,7 @@ const CreateCategory = () => {
 
 
   useEffect(() => {
-    loadData(user.token);
+    loadData();
 
   }, [])
 

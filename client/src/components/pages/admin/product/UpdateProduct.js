@@ -45,7 +45,7 @@ const UpdateProduct = () => {
                 console.log(err.response.data);
             });
 
-        listCategory(user.token)
+        listCategory()
             .then((res) => {
                 setCategory(res.data);
             }).catch((err) => {
