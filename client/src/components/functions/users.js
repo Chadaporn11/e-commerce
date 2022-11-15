@@ -39,3 +39,20 @@ export const resetPassword = async (authtoken, id, values) => {
     },
   });
 };
+
+export const userCart = async (authtoken, cart) => {
+  return await axios.post("http://localhost:5000/api/user/cart",
+    { cart }, {
+    headers: {
+      authtoken,
+    },
+  });
+};
+
+export const getUserCart = async (authtoken) => {
+  return await axios.get("http://localhost:5000/api/user/cart",{
+    headers: {
+      authtoken,
+    },
+  });
+};

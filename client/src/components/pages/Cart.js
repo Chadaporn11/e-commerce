@@ -1,12 +1,16 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import ProductTableInCart from '../cards/ProductTableInCart';
+//functions
+import { userCart } from '../functions/users';
 
 
 const Cart = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { user, cart } = useSelector((state) => ({ ...state }));
 
     const getTotal = () => {
@@ -16,6 +20,15 @@ const Cart = () => {
     }
 
     const handleSaveOrder = () => {
+        alert('CheckOut Order');
+        userCart(user.token, cart)
+            .then((res) => {
+                console.log(res.data);
+                navigate('/checkout');
+
+            }).catch((err) => {
+                console.log(err.response.data);
+            });
 
     }
 
@@ -32,7 +45,7 @@ const Cart = () => {
                     </tr>
                 </thead>
                 {cart.map((item) =>
-                    <ProductTableInCart key={item._id} item={item}/>
+                    <ProductTableInCart key={item._id} item={item} />
                 )}
 
 
