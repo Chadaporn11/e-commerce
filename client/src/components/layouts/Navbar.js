@@ -1,6 +1,7 @@
 import React from "react";
-import { Menu } from "antd";
+import { Menu, Badge } from "antd";
 import {
+  ShoppingCartOutlined,
   ShopOutlined,
   HomeOutlined,
   UserAddOutlined,
@@ -19,7 +20,7 @@ const Navbar = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => ({ ...state }));
+  const { user, cart } = useSelector((state) => ({ ...state }));
   console.log("user Navbar", user);
 
   const logout = () => {
@@ -39,7 +40,14 @@ const Navbar = () => {
         {/* <a href="" ></a>*/}
         <Link to="/shop">Shop</Link>
       </Menu.Item>
-
+      <Menu.Item key="cart" icon={<ShoppingCartOutlined />}>
+        {/* <a href="" ></a>*/}
+        <Link to="/cart">
+          <Badge count={cart.length} offset={[9,0]}>
+            Cart
+          </Badge>
+        </Link>
+      </Menu.Item>
       {user && (
         <>
           {/* {user.username} */}

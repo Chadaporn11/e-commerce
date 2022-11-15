@@ -5,8 +5,10 @@ import Login from "./components/pages/auth/Login";
 import Home from "./components/pages/Home";
 import Product from "./components/pages/Product";
 import Shop from "./components/pages/Shop";
+import Cart from "./components/pages/Cart";
 
-
+//Drawer
+import SideDrawer from "./components/drawer/SideDrawer";
 // Layout
 import Navbar from "./components/layouts/Navbar";
 
@@ -64,12 +66,15 @@ function App() {
     <div className="App">
       <ToastContainer />
       <Navbar />
+      <SideDrawer/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<Cart />} />
+
 
 
 
