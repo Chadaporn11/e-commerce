@@ -16,7 +16,7 @@ const { auth, adminCheck } = require("../middleware/auth");
 //@Endpoint  http://localhost:5000/api/category
 //@Method    GET
 //@Access    Private
-router.get("/category", auth, adminCheck, list);
+router.get("/category", list);
 
 //@Endpoint  http://localhost:5000/api/category
 //@Method    POST

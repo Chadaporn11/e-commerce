@@ -71,8 +71,28 @@ exports.listBy = async (req, res) => {
 };
 
 //search
+// Query
 const handleQuery = async (req, res, query) => {
     let products = await Product.find({$text:{$search:query}}).populate('category',"_id name")
+
+    res.send(products);
+
+};
+//Price
+const handlePrice = async (req, res, price) => {
+    let products = await Product.find({
+        price: {
+            $gte: price[0],
+            $lte: price[1]
+        }
+    }).populate('category',"_id name")
+
+    res.send(products);
+
+};
+// Category
+const handleCategory = async (req, res, category) => {
+    let products = await Product.find({category}).populate('category',"_id name")
 
     res.send(products);
 
@@ -80,11 +100,20 @@ const handleQuery = async (req, res, query) => {
 
 exports.searchFilters = async (req, res) => {
 
-    const { query } = req.body;
+    const { query, price, category } = req.body;
     console.log(query);
     if (query) {
         console.log(query);
         await handleQuery(req, res, query);
     }
+    if ( price != undefined ) {
+        console.log(price);
+        await handlePrice(req, res, price);
+    }
+    if (category){
+        console.log(category);
+        await handleCategory(req, res, category);
+    }
+    
 
 };

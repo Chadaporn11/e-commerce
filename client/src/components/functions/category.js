@@ -8,12 +8,8 @@ export const createCategory = async (authtoken,value) => {
   });
 };
 
-export const listCategory = async (authtoken) => {
-  return await axios.get("http://localhost:5000/api/category",{
-    headers: {
-      authtoken,
-    },
-  });
+export const listCategory = async () => {
+  return await axios.get("http://localhost:5000/api/category");
 };
 
 export const readCategory = async (authtoken,id) => {

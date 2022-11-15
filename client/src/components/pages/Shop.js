@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ProductCard from '../cards/ProductCard';
+//antd
+import { Slider, Checkbox } from 'antd';
 
 //function
 import {
@@ -8,6 +10,10 @@ import {
     searchFilters,
 
 } from '../functions/product';
+import {
+    listCategory,
+
+} from '../functions/category';
 
 
 const Shop = () => {
@@ -15,6 +21,11 @@ const Shop = () => {
     const { search } = useSelector((state) => ({ ...state }))
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [price, setPrice] = useState([0, 0]);
+    const [ok, setOk] = useState(false);
+    //Category
+    const [category, setCategory] = useState([]);
+    const [categorySelect, setCategorySelect] = useState([]);
 
     const { text } = search;
 
@@ -30,20 +41,24 @@ const Shop = () => {
                 console.log(err.response.data);
             });
     }
-
+    //1. Load all Data
     useEffect(() => {
 
         loadData();
+        listCategory().then((res) => setCategory(res.data));
 
     }, []);
 
-    //load data on user filter
+    //2. Load data on user filter
     useEffect(() => {
 
-        const delay = setTimeout(()=>{
+        const delay = setTimeout(() => {
             fetchDataFilter({ query: text });
-        },300)
-        return ()=> clearTimeout(delay)
+            if (!text) {
+                loadData();
+            }
+        }, 300)
+        return () => clearTimeout(delay)
 
     }, [text]);
 
@@ -55,6 +70,41 @@ const Shop = () => {
             });
     }
 
+    const handlePrice = (value) => {
+        setPrice(value);
+        setTimeout(() => {
+            setOk(!ok);
+        }, 300)
+
+    }
+    //3. Load on slider
+    useEffect(() => {
+        fetchDataFilter({ price });
+
+    }, [ok]);
+
+    const handleCheck = (e) => {
+        //ค่าปัจจุบันที่ Check
+        let inCheck = e.target.value;
+        //ค่าเดิมของ Check
+        let inState = [...categorySelect];
+
+        let findCheck = inState.indexOf(inCheck);
+
+        if (findCheck === -1) {
+            inState.push(inCheck);
+        } else {
+            inState.splice(findCheck, 1);
+        }
+
+        setCategorySelect(inState);
+        console.log(inState);
+        fetchDataFilter({ category:inState });
+        if (inState.length < 1) {
+            loadData();
+        }
+
+    }
 
 
     return (
@@ -63,6 +113,24 @@ const Shop = () => {
                 <div className='row'>
                     <div className='col-md-3'>
                         Filter / Search
+                        <hr />
+                        <h4>ค้นหาด้วยราคาสินค้า</h4>
+                        <Slider
+                            value={price}
+                            onChange={handlePrice}
+                            range
+                            max={1000} />
+                        <hr />
+                        <h4>ค้นหาตามหมวดหมู่สินค้า</h4>
+                        {category.map((item) =>
+                            <Checkbox
+                                onChange={handleCheck}
+                                value={item._id}
+                            >
+                                {item.name}
+                            </Checkbox>
+                        )}
+
                     </div>
                     <div className='col-md-9'>
                         {loading

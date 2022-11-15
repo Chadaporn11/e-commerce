@@ -49,9 +49,10 @@ const Navbar = () => {
             icon={<DownOutlined />}
             title={user.username}
           >
-            <Menu.Item 
-            icon={<LogoutOutlined />}
-            key="setting:1" onClick={logout}>
+            <Menu.Item
+              icon={<LogoutOutlined />}
+              key="setting:1"
+              onClick={logout}>
               Logout
             </Menu.Item>
 
@@ -79,10 +80,10 @@ const Navbar = () => {
           </Menu.Item>
         </>
       )}
-      <span 
-      className="p-1"
-      style={{float: "right"}}>
-        <Search/>
+      <span
+        className="p-1"
+        style={{ float: "right" }}>
+        <Search />
 
       </span>
     </Menu>
