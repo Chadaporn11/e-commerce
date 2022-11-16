@@ -43,7 +43,7 @@ const Navbar = () => {
       <Menu.Item key="cart" icon={<ShoppingCartOutlined />}>
         {/* <a href="" ></a>*/}
         <Link to="/cart">
-          <Badge count={cart.length} offset={[9,0]}>
+          <Badge count={cart.length} offset={[9, 0]}>
             Cart
           </Badge>
         </Link>
@@ -57,6 +57,15 @@ const Navbar = () => {
             icon={<DownOutlined />}
             title={user.username}
           >
+            <Menu.Item
+              //icon={<LogoutOutlined />}
+              key="setting:2">
+              <Link
+                to='/user/index'>
+                Dashboard
+              </Link>
+            </Menu.Item>
+
             <Menu.Item
               icon={<LogoutOutlined />}
               key="setting:1"

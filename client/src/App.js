@@ -28,6 +28,8 @@ import UpdateProduct from "./components/pages/admin/product/UpdateProduct";
 // pages user
 import HomeUser from "./components/pages/user/Home";
 import CheckOut from "./components/pages/CheckOut";
+import WishList from "./components/pages/user/WishList";
+
 
 // functions
 import { currentUser } from "./components/functions/auth";
@@ -139,6 +141,14 @@ function App() {
           element={
             <UserRoute>
               <CheckOut />
+            </UserRoute>
+          }
+        />
+        <Route
+          path="/user/wishlist"
+          element={
+            <UserRoute>
+              <WishList />
             </UserRoute>
           }
         />
