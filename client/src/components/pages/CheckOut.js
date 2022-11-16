@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import ReactQuill from 'react-quill'; //ES6
 import 'react-quill/dist/quill.snow.css'; //ES6
@@ -17,6 +18,7 @@ import {
 const CheckOute = () => {
   const { user } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const [address, setAddress] = useState('');
@@ -45,7 +47,6 @@ const CheckOute = () => {
         emptyCart(user.token)
           .then((res) => {
             console.log(res.data);
-            toast.success('Save Order Success!');
 
           }).catch((err) => {
             console.log(err.response.data);
@@ -60,6 +61,9 @@ const CheckOute = () => {
           if(typeof window !== 'undefined'){
             localStorage.removeItem('cart');
           }
+          toast.success('Save Order Success!');
+          navigate('/user/history');
+
 
       }).catch((err) => {
         console.log(err.response.data);

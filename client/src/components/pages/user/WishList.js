@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from 'react-toastify';
 import MenubarUser from "../../layouts/MenubarUser";
+import { Link } from 'react-router-dom';
 
 //function
 import {
@@ -56,7 +57,9 @@ const WishList = () => {
               <div
                 className="alert alert-secondary"
                 key={index}>
-                {item.title}
+                <Link to={`/product/${item._id}`}>
+                  {item.title}
+                </Link>
                 <span
                   onClick={() => handleRemove(item._id)}
                   style={{ float: 'right' }}>ลบ</span>

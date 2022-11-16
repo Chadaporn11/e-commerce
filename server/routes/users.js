@@ -13,6 +13,7 @@ const {
   getUserCart,
   saveAddress,
   saveOrder,
+  getOrder,
   emptyCart,
   addToWishlist,
   getWishlist,
@@ -76,6 +77,11 @@ router.post("/user/address", auth, saveAddress);
 //@Method    POST
 //@Access    Private
 router.post("/user/order", auth, saveOrder);
+
+//@Endpoint  http://localhost:5000/api/user/orders
+//@Method    GET
+//@Access    Private
+router.get("/user/orders", auth, getOrder);
 
 //@Endpoint  http://localhost:5000/api/user/wishlist
 //@Method    POST

@@ -174,9 +174,9 @@ exports.saveOrder = async (req, res) => {
     let user = await User.findOne({ username: req.user.username }).exec();
     let userCart = await Cart.findOne({ orderBy: user._id }).exec();
     let order = await new Order({
-      product: userCart.product,
+      products: userCart.products,
       orderBy: user._id,
-      cartTotal: userCart.total
+      cartTotal: userCart.cartTotal
     }).save();
 
     // + - product
@@ -197,6 +197,22 @@ exports.saveOrder = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).send("saveOrder Error!");
+  }
+
+};
+
+exports.getOrder = async (req, res) => {
+  try {
+
+    const user = await User.findOne({ username: req.user.username }).exec();
+    let order = await Order.find({ orderBy: user._id })
+      .populate("products.product")
+      .exec();
+    res.json(order);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("getOrders Error!");
   }
 
 };
