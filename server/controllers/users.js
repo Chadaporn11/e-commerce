@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const Product = require("../models/Product");
 const Cart = require("../models/Cart");
+const Order = require("../models/Order");
 const jwt = require("jsonwebtoken");
 
 exports.listUsers = async (req, res) => {
@@ -144,6 +145,58 @@ exports.getUserCart = async (req, res) => {
     console.log(err);
     res.status(500).send("Server Error!");
 
+  }
+
+};
+
+//Save Address
+exports.saveAddress = async (req, res) => {
+  try {
+    const userAddress = await User.findOneAndUpdate(
+      {
+        username: req.user.username
+      },
+      {
+        address: req.body.address
+      }).exec();
+    res.json({ok:true});
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error!");
+  }
+
+};
+
+//Save Order
+exports.saveOrder = async (req, res) => {
+  try {
+    let user = await User.findOne({username: req.user.username}).exec();
+    let userCart = await Cart.findOne({orderBy: user._id}).exec();
+    let order = await new Order({
+      product: userCart.product,
+      orderBy: user._id,
+      cartTotal: userCart.total
+    }).save();
+    
+    // + - product
+    let bulkOption = userCart.products.map((item)=>{
+      return {
+        updateOne:{
+          filter: {_id:item.product._id},
+          update: { $inc: { quantity: -item.count, sold:+item.count}}
+        }
+      }
+    })
+
+    let updated = await Product.bulkWrite(bulkOption,{})
+
+
+    res.send(updated);
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error!");
   }
 
 };
