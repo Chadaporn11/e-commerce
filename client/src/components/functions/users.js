@@ -83,6 +83,14 @@ export const saveOrder = async (authtoken) => {
     },
   });
 };
+//Get Order
+export const getOrders = async (authtoken) => {
+  return await axios.get("http://localhost:5000/api/user/orders", {
+    headers: {
+      authtoken,
+    },
+  });
+};
 
 //Wishlist
 export const getWishList = async (authtoken) => {

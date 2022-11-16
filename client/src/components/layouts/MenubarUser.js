@@ -8,6 +8,10 @@ const MenubarUser = () => {
       <ul className="nav flex-column">
 
         <li className="nav-item">
+          <Link to="/user/history">ประวัติการซื้อขาย</Link>
+        </li>
+
+        <li className="nav-item">
           <Link to="/user/wishlist">สินค้าที่สนใจ</Link>
         </li>
 
