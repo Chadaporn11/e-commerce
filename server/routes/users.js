@@ -11,6 +11,8 @@ const {
   changeRole,
   userCart,
   getUserCart,
+  saveAddress,
+  saveOrder,
 } = require("../controllers/users");
 
 // middleware
@@ -55,5 +57,15 @@ router.post("/user/cart", auth, userCart);
 //@Method    GET
 //@Access    Private
 router.get("/user/cart", auth, getUserCart);
+
+//@Endpoint  http://localhost:5000/api/user/address
+//@Method    POST
+//@Access    Private
+router.post("/user/address", auth, saveAddress);
+
+//@Endpoint  http://localhost:5000/api/user/order
+//@Method    POST
+//@Access    Private
+router.post("/user/order", auth, saveOrder);
 
 module.exports = router;

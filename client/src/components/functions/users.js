@@ -56,3 +56,21 @@ export const getUserCart = async (authtoken) => {
     },
   });
 };
+//Save Address
+export const saveAddress = async (authtoken, address) => {
+  return await axios.post("http://localhost:5000/api/user/address",
+    { address }, {
+    headers: {
+      authtoken,
+    },
+  });
+};
+
+//Save Order
+export const saveOrder = async (authtoken) => {
+  return await axios.post("http://localhost:5000/api/user/order",{}, {
+    headers: {
+      authtoken,
+    },
+  });
+};
