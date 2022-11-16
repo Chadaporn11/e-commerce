@@ -50,12 +50,21 @@ export const userCart = async (authtoken, cart) => {
 };
 
 export const getUserCart = async (authtoken) => {
-  return await axios.get("http://localhost:5000/api/user/cart",{
+  return await axios.get("http://localhost:5000/api/user/cart", {
     headers: {
       authtoken,
     },
   });
 };
+
+export const emptyCart = async (authtoken) => {
+  return await axios.delete("http://localhost:5000/api/user/cart", {
+    headers: {
+      authtoken,
+    },
+  });
+};
+
 //Save Address
 export const saveAddress = async (authtoken, address) => {
   return await axios.post("http://localhost:5000/api/user/address",
@@ -68,9 +77,39 @@ export const saveAddress = async (authtoken, address) => {
 
 //Save Order
 export const saveOrder = async (authtoken) => {
-  return await axios.post("http://localhost:5000/api/user/order",{}, {
+  return await axios.post("http://localhost:5000/api/user/order", {}, {
     headers: {
       authtoken,
     },
   });
+};
+
+//Wishlist
+export const getWishList = async (authtoken) => {
+  return await axios.get("http://localhost:5000/api/user/wishlist", {
+    headers: {
+      authtoken,
+    },
+  });
+};
+
+export const addToWishList = async (authtoken, productId) => {
+  return await axios.post("http://localhost:5000/api/user/wishlist",
+    {
+      productId
+    },
+    {
+      headers: {
+        authtoken,
+      },
+    });
+};
+
+export const removeWishList = async (authtoken, productId) => {
+  return await axios.put("http://localhost:5000/api/user/wishlist/"+productId,{},
+    {
+      headers: {
+        authtoken,
+      },
+    });
 };

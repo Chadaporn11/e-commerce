@@ -11,6 +11,7 @@ import {
   getUserCart,
   saveAddress,
   saveOrder,
+  emptyCart,
 } from '../functions/users';
 
 const CheckOute = () => {
@@ -41,6 +42,24 @@ const CheckOute = () => {
     saveOrder(user.token)
       .then((res) => {
         console.log(res.data);
+        emptyCart(user.token)
+          .then((res) => {
+            console.log(res.data);
+            toast.success('Save Order Success!');
+
+          }).catch((err) => {
+            console.log(err.response.data);
+            toast.error('Save Order Error!');
+          });
+
+          dispatch({
+            type: 'ADD_TO_CART',
+            payload: [],
+          })
+          //loacalStorage
+          if(typeof window !== 'undefined'){
+            localStorage.removeItem('cart');
+          }
 
       }).catch((err) => {
         console.log(err.response.data);

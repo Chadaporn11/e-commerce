@@ -13,6 +13,10 @@ const {
   getUserCart,
   saveAddress,
   saveOrder,
+  emptyCart,
+  addToWishlist,
+  getWishlist,
+  removeWishlist,
 } = require("../controllers/users");
 
 // middleware
@@ -58,6 +62,11 @@ router.post("/user/cart", auth, userCart);
 //@Access    Private
 router.get("/user/cart", auth, getUserCart);
 
+//@Endpoint  http://localhost:5000/api/user/cart
+//@Method    DELETE
+//@Access    Private
+router.delete("/user/cart", auth, emptyCart);
+
 //@Endpoint  http://localhost:5000/api/user/address
 //@Method    POST
 //@Access    Private
@@ -67,5 +76,24 @@ router.post("/user/address", auth, saveAddress);
 //@Method    POST
 //@Access    Private
 router.post("/user/order", auth, saveOrder);
+
+//@Endpoint  http://localhost:5000/api/user/wishlist
+//@Method    POST
+//@Access    Private
+router.post("/user/wishlist",auth, addToWishlist);
+
+//@Endpoint  http://localhost:5000/api/user/wishlist
+//@Method    GET
+//@Access    Private
+router.get("/user/wishlist", auth, getWishlist);
+
+//@Endpoint  http://localhost:5000/api/user/wishlist/:productId
+//@Method    PUT
+//@Access    Private
+router.put("/user/wishlist/:productId", auth, removeWishlist);
+
+
+
+
 
 module.exports = router;
