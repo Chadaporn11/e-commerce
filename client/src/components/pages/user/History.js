@@ -2,10 +2,23 @@ import React, { useState, useEffect } from "react";
 import MenubarUser from "../../layouts/MenubarUser";
 import { useDispatch, useSelector } from 'react-redux';
 
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  PDFDownloadLink,
+} from '@react-pdf/renderer';
+
+import Invoice from "../../order/Invoice";
+
 //function
 import {
   getOrders,
 } from '../../functions/users';
+
+
 
 const History = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -62,6 +75,19 @@ const History = () => {
                   </tr>
 
                 </table>
+                <div className="row">
+                  <div className="col">
+                    <PDFDownloadLink
+                      document={
+                        <Invoice order={item}/>
+                      }
+                      fileName="invoice.pdf"
+                      className="btn btn-primary m-1"
+                      >
+                      PDF Dowload
+                    </PDFDownloadLink>
+                  </div>
+                </div>
               </div>
 
             })}
@@ -69,6 +95,7 @@ const History = () => {
         </div>
 
       </div>
+
     </div>
   );
 };
