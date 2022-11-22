@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@david.kucsai/react-pdf-table": "^0.4.1",
+    "@react-pdf/font": "2.2.1",
+    "@react-pdf/fontkit": "2.0.2",
+    "@react-pdf/pdfkit": "2.1.0",
+    "@react-pdf/renderer": "2.0.19",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -24,6 +29,12 @@
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
     "web-vitals": "^1.1.2"
+  },
+  "overrides": {
+    "react-error-overlay": "6.0.9",
+    "@react-pdf/font": "2.2.1",
+    "@react-pdf/fontkit": "2.0.2",
+    "@react-pdf/pdfkit": "2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

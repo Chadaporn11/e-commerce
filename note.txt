@@ -7,3 +7,26 @@ npm i react-image-file-resizer
 npm i react-responsive-carousel
 npm i lodash
 npm i react-quill --force
+==========================================
+npm i @react-pdf/renderer --force
+
+-Edit client/package.json-
+
+"dependencies": {
+    "@react-pdf/font": "2.2.1",
+    "@react-pdf/fontkit": "2.0.2",
+    "@react-pdf/pdfkit": "2.1.0",
+    "@react-pdf/renderer": "2.0.19",
+},
+"overrides": {
+    "react-error-overlay": "6.0.9",
+    "@react-pdf/font": "2.2.1",
+    "@react-pdf/fontkit": "2.0.2",
+    "@react-pdf/pdfkit": "2.1.0"
+  }
+
+After >npm install
+==========================================
+
+npm i @david.kucsai/react-pdf-table --force
+
