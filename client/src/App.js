@@ -22,8 +22,7 @@ import CreateCategory from "./components/pages/admin/category/CreateCategory";
 import UpdateCategory from "./components/pages/admin/category/UpdateCategory";
 import CreateProduct from "./components/pages/admin/product/CreateProduct";
 import UpdateProduct from "./components/pages/admin/product/UpdateProduct";
-
-
+import Orders from "./components/pages/admin/Orders";
 
 // pages user
 import HomeUser from "./components/pages/user/Home";
@@ -124,6 +123,14 @@ function App() {
           element={
             <AdminRoute>
               <UpdateProduct />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/orders"
+          element={
+            <AdminRoute>
+              <Orders />
             </AdminRoute>
           }
         />
