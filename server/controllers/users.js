@@ -205,7 +205,7 @@ exports.getOrder = async (req, res) => {
   try {
 
     const user = await User.findOne({ username: req.user.username }).exec();
-    let order = await Order.find({ orderBy: user._id })
+    let order = await Order.find({ orderBy: user._id }) 
       .populate("products.product")
       .exec();
     res.json(order);

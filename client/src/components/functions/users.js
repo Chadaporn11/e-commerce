@@ -83,7 +83,7 @@ export const saveOrder = async (authtoken) => {
     },
   });
 };
-//Get Order
+//Get Order user
 export const getOrders = async (authtoken) => {
   return await axios.get("http://localhost:5000/api/user/orders", {
     headers: {

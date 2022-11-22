@@ -39,7 +39,7 @@ const Home = () => {
   useEffect(() => {
     loadData(user.token, 100);
 
-  }, [])
+  }, []);
 
   const loadData = (authtoken, count) => {
     setLoading(true);
