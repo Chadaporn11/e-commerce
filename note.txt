@@ -30,3 +30,4 @@ After >npm install
 
 npm i @david.kucsai/react-pdf-table --force
 
+ok
